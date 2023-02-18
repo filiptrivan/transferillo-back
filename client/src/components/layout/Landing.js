@@ -1,7 +1,14 @@
 import React from "react";
 import { Link, Navigate } from "react-router-dom";
+//moramo da se konektujemo jer treba da interaktujemo sa stejtom da vidimo jel smo loginovani ili ne
+//ovo radimo da kad smo loginovani da ne bi mogli da pristupimo landing pageu
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const Landing = () => {
+const Landing = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
+  }
   return (
     <>
       <section className="landing">
@@ -27,4 +34,13 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+//ovo i konekt, sve radimo da bi mogli da iskoristimo isAuthenticated
+Landing.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Landing);

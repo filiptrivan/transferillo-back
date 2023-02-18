@@ -1,7 +1,12 @@
-import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
+import { setAlert } from "../../actions/alert";
+import { register } from "../../actions/auth";
+import PropTypes from "prop-types";
 
-const Register = () => {
+//ovde u zagradi je ranije pisalo props, ali ga destructurisemo pa dole ne moramo da pisemo props.setAlert
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,11 +25,18 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Password do not match");
+      //danger-alert type, ubacujemo to zbog css-a pogledaj tamo
+      setAlert("Password do not match", "danger");
     } else {
-      console.log("Success");
+      register({ name, email, password });
     }
   };
+
+  // redirect if registered
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
+  }
+
   return (
     <section className="container">
       <h1 className="large text-primary">Register</h1>
@@ -82,4 +94,15 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+//null-je moglo da bude any state that you wanna map (umesto mapStateToProps je stajalo null)
+export default connect(mapStateToProps, { setAlert, register })(Register);
