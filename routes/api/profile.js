@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator/check");
+// bring in normalize to give us a proper url, regardless of what user entered
 
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const Post = require("../../models/Post");
 
 // @route    GET api/profile/me
 // @desc     Get current users profile
@@ -130,9 +132,7 @@ router.get("/user/:user_id", async (req, res) => {
     const profile = await Profile.findOne({
       user: req.params.user_id,
     }).populate("user", ["name", "avatar"]);
-
     if (!profile) return res.status(400).json({ msg: "Profile not found" });
-
     res.json(profile);
   } catch (err) {
     console.error(err.message);
@@ -149,6 +149,7 @@ router.get("/user/:user_id", async (req, res) => {
 router.delete("/", auth, async (req, res) => {
   try {
     // Remove user posts
+    await Post.deleteMany({ user: req.user.id });
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
     // Remove user

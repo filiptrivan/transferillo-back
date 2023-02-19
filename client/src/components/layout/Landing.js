@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 //moramo da se konektujemo jer treba da interaktujemo sa stejtom da vidimo jel smo loginovani ili ne
 //ovo radimo da kad smo loginovani da ne bi mogli da pristupimo landing pageu
 import { connect } from "react-redux";
@@ -7,30 +7,28 @@ import PropTypes from "prop-types";
 
 const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" />;
+    return <Redirect to="/dashboard" />;
   }
   return (
-    <>
-      <section className="landing">
-        <div className="dark-overlay">
-          <div className="landing-inner">
-            <h1 className="x-large">Developer Connector</h1>
-            <p className="lead">
-              Create a developer profile/portfolio, share posts and get help
-              from other developers
-            </p>
-            <div className="buttons">
-              <Link to="/register" className="btn btn-primary">
-                Sign Up
-              </Link>
-              <Link to="/login" className="btn btn-light">
-                Login
-              </Link>
-            </div>
+    <section className="landing">
+      <div className="dark-overlay">
+        <div className="landing-inner">
+          <h1 className="x-large">Developer Connector</h1>
+          <p className="lead">
+            Create a developer profile/portfolio, share posts and get help from
+            other developers
+          </p>
+          <div className="buttons">
+            <Link to="/register" className="btn btn-primary">
+              Sign Up
+            </Link>
+            <Link to="/login" className="btn btn-light">
+              Login
+            </Link>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

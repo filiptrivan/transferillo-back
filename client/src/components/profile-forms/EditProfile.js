@@ -1,13 +1,19 @@
-import React, { useState, Fragment } from "react";
+//treba nam useEffect da bi mogli da pokrenemo getCurrentProfile, da mozemo da fetchujemo(uzimamo) datu i posaljemo je kroz state
+import React, { useState, Fragment, useEffect } from "react";
 //withRouter importujemo zbog history-ja u profile.js/actions, ovo ce nam dozvoliti da redirektujemo unutar akcije
 import { Link, withRouter, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProfile } from "../../actions/profile";
+import { createProfile, getCurrentProfile } from "../../actions/profile";
 
 //ovo sve dole sa praznim stringovima je pocetna vrednost koja moze da se promeni
 //putem setFormData, stavlja se kao pocetna prazna vrednost jer user nista nije ukucao
-const CreateProfile = ({ createProfile, history }) => {
+const EditProfile = ({
+  profile: { profile, loading },
+  createProfile,
+  getCurrentProfile,
+  history,
+}) => {
   const [formData, setFormData] = useState({
     company: "",
     website: "",
@@ -24,6 +30,29 @@ const CreateProfile = ({ createProfile, history }) => {
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  //treba nam useEffect da bi mogli da pokrenemo getCurrentProfile, da mozemo da fetchujemo(uzimamo) datu i posaljemo je kroz state
+  //The useEffect hook is used in React functional components to perform side effects, such as
+  //fetching data from an API, subscribing to events, updating the DOM, and more.
+  useEffect(() => {
+    getCurrentProfile();
+
+    setFormData({
+      company: loading || !profile.company ? "" : profile.company,
+      website: loading || !profile.website ? "" : profile.website,
+      location: loading || !profile.location ? "" : profile.location,
+      status: loading || !profile.status ? "" : profile.status,
+      skills: loading || !profile.skills ? "" : profile.skills.join(","),
+      githubusername:
+        loading || !profile.githubusername ? "" : profile.githubusername,
+      bio: loading || !profile.bio ? "" : profile.bio,
+      twitter: loading || !profile.social ? "" : profile.social.twitter,
+      facebook: loading || !profile.social ? "" : profile.social.facebook,
+      linkedin: loading || !profile.social ? "" : profile.social.linkedin,
+      youtube: loading || !profile.social ? "" : profile.social.youtube,
+      instagram: loading || !profile.social ? "" : profile.social.instagram,
+    });
+  }, [loading, getCurrentProfile]);
 
   const {
     company,
@@ -47,7 +76,10 @@ const CreateProfile = ({ createProfile, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createProfile(formData, history);
+    //The third parameter true is a boolean value, which could be used to indicate whether the profile creation was successful or not.
+    //The use of history as a parameter suggests that this code is used in a React application, and the history object is likely used to navigate to another page after the profile creation is complete.
+    //bez ovog true je pokazivalo profile created iako smo ga updatovali
+    createProfile(formData, history, true);
   };
 
   return (
@@ -224,11 +256,19 @@ const CreateProfile = ({ createProfile, history }) => {
   );
 };
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
 //if we are gonna use that history we need to wrap this with withRouter
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(EditProfile)
+);
 
 //sad kad smo napravili ovo treba nam action SUBMIT_PROFILE (ipak ostalo GET_PROFILE)
