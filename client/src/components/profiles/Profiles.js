@@ -22,13 +22,13 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
           <h1 className="large text-primary">Developers</h1>
           <p className="lead">
             <i className="fab fa-connectdevelop" /> Browse and connect with
-            footballers
+            developers
           </p>
           <div className="profiles">
             {/* ovde zelimo da mapujemo kroz profile i autputujemo svaki pojedinacno */}
             {profiles.length > 0 ? (
               profiles.map((profile) => (
-                <ProfileItem key={profile?._id} profile={profile} />
+                <ProfileItem key={profile._id} profile={profile} />
               ))
             ) : (
               <h4>No profiles found...</h4>
@@ -44,12 +44,12 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
 //isRequired is a validator for React prop types that specifies that a prop is required for a component to function properly.
 Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 //The mapStateToProps function is used to map the Redux state to the props of the Profiles component. In this case, it maps the profile state from the Redux store to the profile prop of the Profiles component.
 const mapStateToProps = (state) => ({
-  profile: state.profile,
+  profile: state.profile
 });
 
 //treba nam mapStateToProps jer nam treba profile states

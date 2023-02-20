@@ -1,9 +1,9 @@
 import {
   REGISTER_SUCCESS,
-  REGISTER_FAIL,
+  // REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
-  LOGIN_FAIL,
+  // LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
   ACCOUNT_DELETED,
@@ -18,7 +18,7 @@ const initialState = {
   user: null,
 };
 
-export default function (state = initialState, action) {
+function authReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -33,28 +33,27 @@ export default function (state = initialState, action) {
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       //puting token in lokal storidz
-      localStorage.setItem("token", payload.token);
       return {
         ...state,
         ...payload,
         isAuthenticated: true,
-        loading: false,
+        loading: false
       };
     //vise stvari ce da radi ovo isto,logaut fail, login fail.., brise auth state i token sa lokal storidza
     //ustvari ne zelimo da ikada imamo token u lokal storidzu koji nije validan
-    case REGISTER_FAIL:
-    case AUTH_ERROR:
-    case LOGIN_FAIL:
-    case LOGOUT:
     case ACCOUNT_DELETED:
-      localStorage.removeItem("token");
+    case AUTH_ERROR:
+    case LOGOUT:
       return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
+        user: null
       };
     default:
       return state;
   }
 }
+
+export default authReducer;

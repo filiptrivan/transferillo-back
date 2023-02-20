@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import { setAlert } from "../../actions/alert";
-import { register } from "../../actions/auth";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
 //ovde u zagradi je ranije pisalo props, ali ga destructurisemo pa dole ne moramo da pisemo props.setAlert
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
+    name: '',
+    email: '',
+    password: '',
+    password2: ''
   });
   //da ne bi radili formData.name, destructure (pullovo) ih je out ovako
   const { name, email, password, password2 } = formData;
@@ -20,13 +20,13 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   //input sa komandom name:e.target.value, ali ovako bi menjao svako name u fajlu
   //tako da i to treba da promenimo u [e.target.name] da bi koristili svuda
   const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== password2) {
+const onSubmit = async (e) => {
+  e.preventDefault();
+  if (password !== password2) {
       //danger-alert type, ubacujemo to zbog css-a pogledaj tamo
-      setAlert("Password do not match", "danger");
+      setAlert('Passwords do not match', 'danger');
     } else {
       register({ name, email, password });
     }
@@ -34,7 +34,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   // redirect if registered
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Navigate to="/dashboard" />;
   }
 
   return (

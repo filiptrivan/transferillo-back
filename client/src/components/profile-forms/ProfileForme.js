@@ -1,29 +1,63 @@
-import React, { useState, Fragment } from "react";
-//withRouter importujemo zbog history-ja u profile.js/actions, ovo ce nam dozvoliti da redirektujemo unutar akcije
-import { Link, withRouter, Redirect } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createProfile } from "../../actions/profile";
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link, useMatch, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
-//ovo sve dole sa praznim stringovima je pocetna vrednost koja moze da se promeni
-//putem setFormData, stavlja se kao pocetna prazna vrednost jer user nista nije ukucao
-const CreateProfile = ({ createProfile, history }) => {
-  const [formData, setFormData] = useState({
-    company: "",
-    website: "",
-    location: "",
-    status: "",
-    skills: "",
-    githubusername: "",
-    bio: "",
-    twitter: "",
-    facebook: "",
-    linkedin: "",
-    youtube: "",
-    instagram: "",
-  });
+/*
+  NOTE: declare initialState outside of component
+  so that it doesn't trigger a useEffect
+  we can then safely use this to construct our profileData
+ */
+const initialState = {
+  company: '',
+  website: '',
+  location: '',
+  status: '',
+  skills: '',
+  githubusername: '',
+  bio: '',
+  twitter: '',
+  facebook: '',
+  linkedin: '',
+  youtube: '',
+  instagram: ''
+};
+
+const ProfileForm = ({
+  profile: { profile, loading },
+  createProfile,
+  getCurrentProfile
+}) => {
+  const [formData, setFormData] = useState(initialState);
+
+  const creatingProfile = useMatch('/create-profile');
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // if there is no profile, attempt to fetch one
+    if (!profile) getCurrentProfile();
+
+    // if we finished loading and we do have a profile
+    // then build our profileData
+    if (!loading && profile) {
+      const profileData = { ...initialState };
+      for (const key in profile) {
+        if (key in profileData) profileData[key] = profile[key];
+      }
+      for (const key in profile.social) {
+        if (key in profileData) profileData[key] = profile.social[key];
+      }
+      // the skills may be an array from our API response
+      if (Array.isArray(profileData.skills))
+        profileData.skills = profileData.skills.join(', ');
+      // set local state with the profileData
+      setFormData(profileData);
+    }
+  }, [loading, getCurrentProfile, profile]);
 
   const {
     company,
@@ -37,32 +71,36 @@ const CreateProfile = ({ createProfile, history }) => {
     facebook,
     linkedin,
     youtube,
-    instagram,
+    instagram
   } = formData;
 
-  //In the context of web development, the target property is used to refer to the element on which an event is triggered.,
-  //you can access the value of the input element using the target
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
+    const editing = profile ? true : false;
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, editing).then(() => {
+      if (!editing) navigate('/dashboard');
+    });
   };
 
   return (
     <section className="container">
-      <h1 className="large text-primary">Create Your Profile</h1>
+      <h1 className="large text-primary">
+        {creatingProfile ? 'Create Your Profile' : 'Edit Your Profile'}
+      </h1>
       <p className="lead">
-        <i className="fas fa-user"></i> Let's get some information to make your
-        profile stand out
+        <i className="fas fa-user" />
+        {creatingProfile
+          ? ` Let's get some information to make your`
+          : ' Add some changes to your profile'}
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
+      <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
-          {/* kad klikne na nesto od ovoga unutar boksa se azurira */}
-          <select name="status" value={status} onChange={(e) => onChange(e)}>
-            <option value="0">* Select Professional Status</option>
+          <select name="status" value={status} onChange={onChange}>
+            <option>* Select Professional Status</option>
             <option value="Developer">Developer</option>
             <option value="Junior Developer">Junior Developer</option>
             <option value="Senior Developer">Senior Developer</option>
@@ -82,7 +120,7 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder="Company"
             name="company"
             value={company}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <small className="form-text">
             Could be your own company or one you work for
@@ -94,7 +132,7 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder="Website"
             name="website"
             value={website}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <small className="form-text">
             Could be your own or a company website
@@ -106,7 +144,7 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder="Location"
             name="location"
             value={location}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <small className="form-text">
             City & state suggested (eg. Boston, MA)
@@ -118,7 +156,7 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder="* Skills"
             name="skills"
             value={skills}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <small className="form-text">
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
@@ -130,7 +168,7 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder="Github Username"
             name="githubusername"
             value={githubusername}
-            onChange={(e) => onChange(e)}
+            onChange={onChange}
           />
           <small className="form-text">
             If you want your latest repos and a Github link, include your
@@ -142,13 +180,12 @@ const CreateProfile = ({ createProfile, history }) => {
             placeholder="A short bio of yourself"
             name="bio"
             value={bio}
-            onChange={(e) => onChange(e)}
-          ></textarea>
+            onChange={onChange}
+          />
           <small className="form-text">Tell us a little about yourself</small>
         </div>
 
         <div className="my-2">
-          {/* ovde krijemo social ovaj button, tek kad se klikne ce se aktivirati */}
           <button
             onClick={() => toggleSocialInputs(!displaySocialInputs)}
             type="button"
@@ -160,59 +197,62 @@ const CreateProfile = ({ createProfile, history }) => {
         </div>
 
         {displaySocialInputs && (
-          <>
-            {" "}
+          <Fragment>
             <div className="form-group social-input">
-              <i className="fab fa-twitter fa-2x"></i>
+              <i className="fab fa-twitter fa-2x" />
               <input
                 type="text"
                 placeholder="Twitter URL"
                 name="twitter"
                 value={twitter}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </div>
+
             <div className="form-group social-input">
-              <i className="fab fa-facebook fa-2x"></i>
+              <i className="fab fa-facebook fa-2x" />
               <input
                 type="text"
                 placeholder="Facebook URL"
                 name="facebook"
                 value={facebook}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </div>
+
             <div className="form-group social-input">
-              <i className="fab fa-youtube fa-2x"></i>
+              <i className="fab fa-youtube fa-2x" />
               <input
                 type="text"
                 placeholder="YouTube URL"
                 name="youtube"
                 value={youtube}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </div>
+
             <div className="form-group social-input">
-              <i className="fab fa-linkedin fa-2x"></i>
+              <i className="fab fa-linkedin fa-2x" />
               <input
                 type="text"
                 placeholder="Linkedin URL"
                 name="linkedin"
                 value={linkedin}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </div>
+
             <div className="form-group social-input">
-              <i className="fab fa-instagram fa-2x"></i>
+              <i className="fab fa-instagram fa-2x" />
               <input
                 type="text"
                 placeholder="Instagram URL"
                 name="instagram"
                 value={instagram}
-                onChange={(e) => onChange(e)}
+                onChange={onChange}
               />
             </div>
-          </>
+          </Fragment>
         )}
 
         <input type="submit" className="btn btn-primary my-1" />
@@ -224,11 +264,16 @@ const CreateProfile = ({ createProfile, history }) => {
   );
 };
 
-CreateProfile.propTypes = {
+ProfileForm.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
-//if we are gonna use that history we need to wrap this with withRouter
-export default connect(null, { createProfile })(withRouter(CreateProfile));
+const mapStateToProps = (state) => ({
+  profile: state.profile
+});
 
-//sad kad smo napravili ovo treba nam action SUBMIT_PROFILE (ipak ostalo GET_PROFILE)
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  ProfileForm
+);

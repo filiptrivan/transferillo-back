@@ -2,7 +2,7 @@ import { SET_ALERT, REMOVE_ALERT } from "../actions/types";
 
 const initialState = [];
 
-export default function (state = initialState, action) {
+function alertReducer(state = initialState, action) {
   //da ne bi koristili action(destructuring).
   const { type, payload } = action;
   //switch proverava koji je type actiona, ako je set alert ili remove alert, ako nije nista onda vraca initial state
@@ -18,3 +18,5 @@ export default function (state = initialState, action) {
       return state;
   }
 }
+
+export default alertReducer;

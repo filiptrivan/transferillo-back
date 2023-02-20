@@ -2,55 +2,52 @@
 // ovde cemo da fetchujemo svu data using action and bring it in from the redux state and
 // then pass it down to other components (expirience, education..)
 
-import React, { Fragment, useEffect } from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCurrentProfile } from "../../actions/profile";
-import Spinner from "../layout/Spinner";
-import Experience from "./Experience";
-import Education from "./Education";
-import DashboardActions from "./DashboardActions";
-import { deleteAccount } from "../../actions/profile";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import DashboardActions from './DashboardActions';
+import Experience from './Experience';
+import Education from './Education';
+import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
   getCurrentProfile,
   deleteAccount,
   auth: { user },
-  profile: { profile, loading },
+  profile: { profile }
 }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
   //ovo sa spinerom radimo jer ne zelimo da prikazujemo aplikaciju dok ne dobijemo profil podatke od servera
-  return loading && profile === null ? (
-    <Spinner />
-  ) : (
+  return (
     <section className="container">
       <h1 className="large text-primary">Dashboard</h1>
       <p className="lead">
         {/* ovim user proveravamo da li je user tu, i to cemo da pullujemo od auth (jer auth ima user u sebi) */}
-        <i className="fas fa-user">Welcome {user && user.name}</i>
+        <i className="fas fa-user" /> Welcome {user && user.name}
       </p>
       {profile !== null ? (
-        <Fragment>
+        <>
           <DashboardActions />
           {/* pass in experience array */}
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
+
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
               <i className="fas fa-user-minus" /> Delete My Account
             </button>
           </div>
-        </Fragment>
+        </>
       ) : (
-        <Fragment>
+        <>
           <p>You have not yet setup a profile, please add some info</p>
           <Link to="/create-profile" className="btn btn-primary my-1">
             Create Profile
           </Link>
-        </Fragment>
+        </>
       )}
     </section>
   );
@@ -58,9 +55,9 @@ const Dashboard = ({
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
   deleteAccount: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 //mapStateToProps, which is a way to connect the application state managed by Redux to a React component
@@ -69,7 +66,7 @@ Dashboard.propTypes = {
 //The resulting component can access the auth and profile props that are passed in by the mapStateToProps function.
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
+  profile: state.profile
 });
 
 export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(

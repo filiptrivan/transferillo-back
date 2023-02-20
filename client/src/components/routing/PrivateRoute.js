@@ -1,17 +1,18 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-// import Spinner from "../layout/Spinner";
+import Spinner from "../layout/Spinner";
 
 const PrivateRoute = ({
   component: Component,
   auth: { isAuthenticated, loading },
 }) => {
   //   if (loading) return <Spinner />;
+  if (loading) return <Spinner />;
   if (isAuthenticated) return <Component />;
 
-  return <Redirect to="/login" />;
+  return <Navigate to="/login" />;
 };
 
 PrivateRoute.propTypes = {
