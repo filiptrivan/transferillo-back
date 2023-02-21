@@ -69,6 +69,7 @@ import {
           ...state,
           post: {
             ...state.post,
+            //filterujemo sve u commentu sto ima specific id
             comments: state.post.comments.filter(
               (comment) => comment._id !== payload
             )
