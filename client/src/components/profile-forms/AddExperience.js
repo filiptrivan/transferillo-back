@@ -7,7 +7,6 @@ const AddExperience = ({ addExperience }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     company: '',
-    
     location: '',
     from: '',
     to: '',
@@ -38,7 +37,7 @@ const AddExperience = ({ addExperience }) => {
         <div className="form-group">
           <input
             type="text"
-            placeholder="* Company"
+            placeholder="* Klub"
             name="company"
             value={company}
             onChange={onChange}
@@ -48,14 +47,14 @@ const AddExperience = ({ addExperience }) => {
         <div className="form-group">
           <input
             type="text"
-            placeholder="Location"
+            placeholder="Lokacija"
             name="location"
             value={location}
             onChange={onChange}
           />
         </div>
         <div className="form-group">
-          <h4>From Date</h4>
+          <h4>Od</h4>
           <input type="date" name="from" value={from} onChange={onChange} />
         </div>
         <div className="form-group">
@@ -72,11 +71,11 @@ const AddExperience = ({ addExperience }) => {
                 setFormData({ ...formData, current: !current });
               }}
             />{' '}
-            Current Job
+            Trenutni Klub
           </p>
         </div>
         <div className="form-group">
-          <h4>To Date</h4>
+          <h4>Do</h4>
           <input
             type="date"
             name="to"
@@ -91,14 +90,14 @@ const AddExperience = ({ addExperience }) => {
               name="description"
               cols="30"
               rows="5"
-              placeholder="Job Description"
+              placeholder="Dodatni detalji u toku igranja u ovom klubu (opciono)..."
               value={description}
               onChange={onChange}
             />
           </div>
           <input type="submit" className="btn btn-primary my-1" />
           <Link className="btn btn-light my-1" to="/dashboard">
-            Go Back
+            Idi Nazad
           </Link>
         </form>
       </section>

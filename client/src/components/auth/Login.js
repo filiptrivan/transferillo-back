@@ -57,7 +57,7 @@ const Login = ({ login, isAuthenticated }) => {
         <input type="submit" className="btn btn-primary" value="Login" />
       </form>
       <p className="my-1">
-        Don't have an account? <Link to="/register">Register</Link>
+        Nemaš profil ? <Link to="/register">Registruj se</Link>
       </p>
     </section>
   );

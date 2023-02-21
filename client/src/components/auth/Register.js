@@ -26,7 +26,7 @@ const onSubmit = async (e) => {
   e.preventDefault();
   if (password !== password2) {
       //danger-alert type, ubacujemo to zbog css-a pogledaj tamo
-      setAlert('Passwords do not match', 'danger');
+      setAlert('Šifre se ne poklapaju', 'danger');
     } else {
       register({ name, email, password });
     }

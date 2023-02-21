@@ -42,7 +42,7 @@ const PostItem = ({
       </button>
       <Link to={`/posts/${_id}`} className="btn btn-primary">
         {/* ovo radimo da bi videli da li postoje komentari, da li da prikazujemo ovo uopste */}
-        Discussion{' '}
+        Komentari{' '}
         {comments.length > 0 && (
           <span className="comment-count">{comments.length}</span>
         )}
@@ -54,7 +54,7 @@ const PostItem = ({
           type="button"
           className="btn btn-danger"
         >
-          <i className="fas fa-times" />
+          Obriši
         </button>
       )}
     </div>

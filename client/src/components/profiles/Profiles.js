@@ -21,7 +21,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
         <Fragment>
           <h1 className="large text-primary">Fudbaleri</h1>
           <p className="lead">
-            <i className="fab fa-connectdevelop" /> Traži i spoji se sa fudbalerima
+             Traži i spoji se sa fudbalerima
           </p>
           <div className="profiles">
             {/* ovde zelimo da mapujemo kroz profile i autputujemo svaki pojedinacno */}

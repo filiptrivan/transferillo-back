@@ -8,7 +8,7 @@ const DashboardActions = () => {
         <i className='fas fa-user-circle text-primary' /> Izmeni Profil
       </Link>
       <Link to='/add-experience' className='btn btn-light'>
-        <i className='fab fa-black-tie text-primary' /> Dodaj Iskustvo
+        <i className='fas fa-futbol text-primary' /> Dodaj Iskustvo
       </Link>
       <Link to='/add-education' className='btn btn-light'>
         <i className='fas fa-graduation-cap text-primary' /> Add Education

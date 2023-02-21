@@ -95,7 +95,7 @@ export const createProfile =
         //Dispatching is the process of sending an action to the Redux store.
         //ako je editovan onda se prikazuje pr up ,drugo pr cr
         dispatch(
-          setAlert(edit ? "Profile Updated" : "Profile Created", "success")
+          setAlert(edit ? "Profil je uspešno ažuriran" : "Profil je uspešno kreiran", "success")
         );
       } catch (err) {
         const errors = err.response.data.errors;
@@ -121,7 +121,7 @@ export const addExperience = (formData) => async (dispatch) => {
       payload: res.data
     });
 
-    dispatch(setAlert('Experience Added', 'success'));
+    dispatch(setAlert('Iskustvo je uspešno dodato', 'success'));
     return res.data;
   } catch (err) {
     const errors = err.response.data.errors;
@@ -174,7 +174,7 @@ export const deleteExperience = (id) => async (dispatch) => {
       payload: res.data
     });
 
-    dispatch(setAlert('Experience Removed', 'success'));
+    dispatch(setAlert('Iskustvo Obrisano', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -207,14 +207,14 @@ export const deleteEducation = (id) => async (dispatch) => {
 // ne uzima nikakve parametre jer ce znati koji je akaunt od tokena
 export const deleteAccount = () => async (dispatch) => {
   //zato sto je tako strasna stvar da se uradi sve cemo wrapovati u if, treba nam konfirmacija
-  if (window.confirm('Are you sure? This can NOT be undone!')) {
+  if (window.confirm('Da li ste sigurni? Ovo se NE može poništiti!')) {
     try {
       await api.delete('/profile');
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });
 
-      dispatch(setAlert('Your account has been permanently deleted'));
+      dispatch(setAlert('Vaš nalog je trajno izbrisan'));
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,

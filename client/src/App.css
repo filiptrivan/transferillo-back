@@ -1,10 +1,10 @@
 /* Global Styles */
 :root {
-  --primary-color: #17a2b8;
-  --dark-color: #343a40;
-  --light-color: #f4f4f4;
-  --danger-color: #dc3545;
-  --success-color: #28a745;
+  --primary-color: #005b7b;
+  --dark-color: #0e1424;
+  --light-color: #F2F3FF;
+  --danger-color: #EF2339;
+  --success-color: #4BB543 ;
 }
 
 * {
@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
@@ -137,6 +137,7 @@ img {
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
+  border-radius: 20px;
 }
 
 .badge {
@@ -333,7 +334,7 @@ button {
 /* Landing Page */
 .landing {
   position: relative;
-  background: url("./img/showcase.jpg") no-repeat center center/cover;
+  background: url("./img/fudbalski\ teren.jpg") no-repeat center center/cover;
   height: 100vh;
 }
 
@@ -358,6 +359,7 @@ button {
   padding: 1rem;
   line-height: 1.8;
   margin-bottom: 1rem;
+  border-radius: 10px;
 }
 
 /* Profile Page */
@@ -378,6 +380,7 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
+  border-radius: 15px;
 }
 
 .profile-top img {
@@ -396,6 +399,7 @@ button {
 .profile-about {
   grid-area: about;
   text-align: center;
+  border-radius: 15px;
 }
 
 .profile-about .skills {
@@ -407,10 +411,12 @@ button {
 
 .profile-exp {
   grid-area: exp;
+  border-radius: 15px;
 }
 
 .profile-edu {
   grid-area: edu;
+  border-radius: 15px;
 }
 
 .profile-exp h2,
@@ -464,6 +470,7 @@ button {
   grid-template-columns: 1fr 4fr;
   grid-gap: 2rem;
   align-items: center;
+  border-radius: 10px;
 }
 
 .post > div:first-child {
@@ -487,6 +494,13 @@ button {
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
 }
+
+/* vezano za Napravi objavu, zapocni diskusiju */
+.border-radius-10 {
+  border-radius: 8px;
+  
+}
+
 
 /* Mobile Styles */
 @media (max-width: 700px) {

@@ -11,7 +11,6 @@ const Experience = ({ experience, deleteExperience }) => {
   const experiences = experience.map((exp) => (
     <tr key={exp._id}>
       <td>{exp.company}</td>
-      <td className="hide-sm">{exp.title}</td>
       <td>
         <Moment format="YYYY/MM/DD">{moment.utc(exp.from)}</Moment> -{" "}
         {/* posto je moguce da bude current te da do bude null, to smo resili ovde */}
@@ -40,8 +39,6 @@ const Experience = ({ experience, deleteExperience }) => {
         <thead>
           <tr>
             <th>Klub</th>
-
-            <th className="hide-sm">Pozicija</th>
             <th className="hide-sm">Vreme</th>
             <th />
           </tr>
