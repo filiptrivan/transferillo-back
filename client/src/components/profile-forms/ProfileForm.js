@@ -15,7 +15,6 @@ const initialState = {
   location: '',
   status: '',
   skills: '',
-  githubusername: '',
   bio: '',
   twitter: '',
   facebook: '',
@@ -65,7 +64,6 @@ const ProfileForm = ({
     location,
     status,
     skills,
-    githubusername,
     bio,
     twitter,
     facebook,
@@ -160,19 +158,6 @@ const ProfileForm = ({
           />
           <small className="form-text">
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
-          </small>
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Github Username"
-            name="githubusername"
-            value={githubusername}
-            onChange={onChange}
-          />
-          <small className="form-text">
-            If you want your latest repos and a Github link, include your
-            username
           </small>
         </div>
         <div className="form-group">

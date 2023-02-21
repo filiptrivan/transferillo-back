@@ -9,8 +9,6 @@ import {
   UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED,
-  GET_REPOS,
-  NO_REPOS
 } from "./types";
 
 //get current users profile
@@ -62,23 +60,6 @@ export const getProfileById = (userId) => async (dispatch) => {
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Get Github repos
-//ne moramo mnogo da radimo ovde jer smo u beku vecinu odradili
-export const getGithubRepos = (username) => async (dispatch) => {
-  try {
-    const res = await api.get(`/profile/github/${username}`);
-
-    dispatch({
-      type: GET_REPOS,
-      payload: res.data
-    });
-  } catch (err) {
-    dispatch({
-      type: NO_REPOS
     });
   }
 };

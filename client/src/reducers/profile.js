@@ -5,8 +5,6 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES,
-  GET_REPOS,
-  NO_REPOS
 } from '../actions/types';
 
 const initialState = {
@@ -17,7 +15,6 @@ const initialState = {
   profiles: [],
   //This property represents an array of repositories belonging to the currently logged in user.
   // It is initially set to an empty array because the user may not have any repositories, or they haven't been loaded yet.
-  repos: [],
   //this property is a boolean value that indicates whether the application is currently loading data from the server or not.
   //It is initially set to true because the application starts in a loading state.
   loading: true,
@@ -54,18 +51,6 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         profile: null,
-        repos: []
-      };
-    case GET_REPOS:
-      return {
-        ...state,
-        repos: payload,
-        loading: false
-      };
-    case NO_REPOS:
-      return {
-        ...state,
-        repos: []
       };
     default:
       return state;
