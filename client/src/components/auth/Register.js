@@ -22,15 +22,26 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onChange = (e) =>
   setFormData({ ...formData, [e.target.name]: e.target.value });
 
-const onSubmit = async (e) => {
-  e.preventDefault();
-  if (password !== password2) {
-      //danger-alert type, ubacujemo to zbog css-a pogledaj tamo
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (name.trim() === '') {
+      setAlert('Name field cannot be empty', 'danger');
+      return;
+    }
+    else if (password !== password2) {
       setAlert('Šifre se ne poklapaju', 'danger');
-    } else {
+      return;
+    } 
+    else if (password.trim() === '') {
+      setAlert('Password polje ne sme da bude prazno', 'danger');
+      return;
+    }
+    else {
       register({ name, email, password });
     }
   };
+  
+  
 
   // redirect if registered
   if (isAuthenticated) {
