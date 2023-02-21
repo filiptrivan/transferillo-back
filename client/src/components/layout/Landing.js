@@ -14,10 +14,10 @@ const Landing = ({ isAuthenticated }) => {
     <section className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1 className="x-large">Developer Connector</h1>
+          <h1 className="x-large">Spajanje fudbalskog ekosistema</h1>
           <p className="lead">
-            Create a developer profile/portfolio, share posts and get help from
-            other developers
+            Napravi svoj fudbalski profil/CV, započni diskusiju oko tema u fudbalu, budi dostupan
+            klubovima i agentima, ažuriraj i obaveštavaj ih o kretanjima u tvojoj karijeri.
           </p>
           <div className="buttons">
             <Link to="/register" className="btn btn-primary">

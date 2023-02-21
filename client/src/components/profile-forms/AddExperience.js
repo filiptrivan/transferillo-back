@@ -7,7 +7,7 @@ const AddExperience = ({ addExperience }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     company: '',
-    title: '',
+    
     location: '',
     from: '',
     to: '',
@@ -16,19 +16,17 @@ const AddExperience = ({ addExperience }) => {
     description: "",
   });
   // const [toDateDisabled, toggleDisabled] = useState(false);
-  const { company, title, location, from, to, current, description } = formData;
+  const { company, location, from, to, current, description } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
     <section className="container">
-      <h1 className="large text-primary">Add An Experience</h1>
+      <h1 className="large text-primary">Dodaj Iskustvo</h1>
       <p className="lead">
-        <i className="fas fa-code-branch" /> Add any developer/programming
-        positions that you have had in the past
+      Dodaj sve klubove u kojima si igrao
       </p>
-      <small>* = required field</small>
       <form
         className="form"
         onSubmit={(e) => {
@@ -36,16 +34,7 @@ const AddExperience = ({ addExperience }) => {
           addExperience(formData).then(() => navigate('/dashboard'));
         }}
       >
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="* Job Title"
-            name="title"
-            value={title}
-            onChange={onChange}
-            required
-          />
-        </div>
+        
         <div className="form-group">
           <input
             type="text"

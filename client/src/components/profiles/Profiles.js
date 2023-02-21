@@ -19,10 +19,9 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
         <Spinner />
       ) : (
         <Fragment>
-          <h1 className="large text-primary">Developers</h1>
+          <h1 className="large text-primary">Fudbaleri</h1>
           <p className="lead">
-            <i className="fab fa-connectdevelop" /> Browse and connect with
-            developers
+            <i className="fab fa-connectdevelop" /> Traži i spoji se sa fudbalerima
           </p>
           <div className="profiles">
             {/* ovde zelimo da mapujemo kroz profile i autputujemo svaki pojedinacno */}
@@ -31,7 +30,7 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                 <ProfileItem key={profile._id} profile={profile} />
               ))
             ) : (
-              <h4>No profiles found...</h4>
+              <h4>Nije pronadjen nijedan profil...</h4>
             )}
           </div>
         </Fragment>

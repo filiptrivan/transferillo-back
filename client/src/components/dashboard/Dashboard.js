@@ -23,10 +23,10 @@ const Dashboard = ({
   //ovo sa spinerom radimo jer ne zelimo da prikazujemo aplikaciju dok ne dobijemo profil podatke od servera
   return (
     <section className="container">
-      <h1 className="large text-primary">Dashboard</h1>
+      <h1 className="large text-primary">Profil</h1>
       <p className="lead">
         {/* ovim user proveravamo da li je user tu, i to cemo da pullujemo od auth (jer auth ima user u sebi) */}
-        <i className="fas fa-user" /> Welcome {user && user.name}
+        {user && user.name}
       </p>
       {profile !== null ? (
         <>
@@ -37,15 +37,15 @@ const Dashboard = ({
 
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
-              <i className="fas fa-user-minus" /> Delete My Account
+              <i className="fas fa-user-minus" /> Obriši profil
             </button>
           </div>
         </>
       ) : (
         <>
-          <p>You have not yet setup a profile, please add some info</p>
+          <p>Nisi napravio svoj profil, aj na brzinu.</p>
           <Link to="/create-profile" className="btn btn-primary my-1">
-            Create Profile
+            Napravi Profil
           </Link>
         </>
       )}
