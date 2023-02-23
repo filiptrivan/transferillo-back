@@ -25,6 +25,7 @@ function authReducer(state = initialState, action) {
     //ovde ce biti sve sem passworda jer smo u bekendu stavili -password
     case USER_LOADED:
       return {
+        //kopira state od ranije, a menja ovo ispod
         ...state,
         isAuthenticated: true,
         loading: false,

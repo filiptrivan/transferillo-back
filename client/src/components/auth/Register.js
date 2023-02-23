@@ -18,7 +18,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   //mogli smo dole samo da se pozovemo na setFormData, ali je hteo ovako da uradi,
   //zelimo da promenimo samo ime zato moramo da spreadujemo pa onda menjamo name u
   //input sa komandom name:e.target.value, ali ovako bi menjao svako name u fajlu
-  //tako da i to treba da promenimo u [e.target.name] da bi koristili svuda
+  //tako da i to treba da promenimo u [e.target.name] da bi koristili svudaa
   const onChange = (e) =>
   setFormData({ ...formData, [e.target.name]: e.target.value });
 

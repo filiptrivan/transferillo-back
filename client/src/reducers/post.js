@@ -19,6 +19,7 @@ import {
   function postReducer(state = initialState, action) {
     const { type, payload } = action;
   
+    //ovde nismo koristili action.type jer smo destrukuisali iznad
     switch (type) {
       case GET_POSTS:
         return {
