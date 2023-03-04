@@ -3,7 +3,6 @@
 // import React, { Fragment } from 'react';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
-// import { deleteEducation } from '../../actions/profile';
 // import formatDate from '../../utils/formatDate.js';
 
 // const Education = ({ education, deleteEducation }) => {
@@ -52,4 +51,3 @@
 // };
 
 // export default connect(null, { deleteEducation })(Education);
-

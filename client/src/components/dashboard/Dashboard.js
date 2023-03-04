@@ -1,6 +1,6 @@
 //dosta se razlikuje na gitu
 // ovde cemo da fetchujemo svu data using action and bring it in from the redux state and
-// then pass it down to other components (expirience, education..)
+// then pass it down to other components (expirience...)
 
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
-import Education from './Education';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
@@ -33,7 +32,7 @@ const Dashboard = ({
           <DashboardActions />
           {/* pass in experience array */}
           <Experience experience={profile.experience} />
-          <Education education={profile.education} />
+
 
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>

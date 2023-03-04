@@ -6,7 +6,7 @@ import Spinner from '../layout/Spinner';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout.js';
 import ProfileExperience from './ProfileExperience.js';
-import ProfileEducation from './ProfileEducation';
+
 
 import { getProfileById } from '../../actions/profile';
 
@@ -25,7 +25,7 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
       ) : (
         <Fragment>
           <Link to="/profiles" className="btn btn-light">
-            Back To Profiles
+            Vrati Se Na Profile
           </Link>
           {/* ako je njegov profil na njemu ce pisati edit profil */}
           {auth.isAuthenticated &&
@@ -55,21 +55,7 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
               )}
             </div>
 
-            <div className="profile-edu bg-white p-2">
-              <h2 className="text-primary">Education</h2>
-              {profile.education.length > 0 ? (
-                <Fragment>
-                  {profile.education.map((education) => (
-                    <ProfileEducation
-                      key={education._id}
-                      education={education}
-                    />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No education credentials</h4>
-              )}
-            </div>
+            
           </div>
         </Fragment>
       )}

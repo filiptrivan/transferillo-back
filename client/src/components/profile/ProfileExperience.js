@@ -12,10 +12,10 @@ const ProfileExperience = ({
     </p>
     
     <p>
-      <strong>Location: </strong> {location}
+      <strong>Lokacija: </strong> {location}
     </p>
     <p>
-      <strong>Description: </strong> {description}
+      <strong>Opis iskustva: </strong> {description}
     </p>
   </div>
 );

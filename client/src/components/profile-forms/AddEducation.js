@@ -2,7 +2,7 @@
 // import { Link, useNavigate } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
-// // import { addEducation } from '../../actions/profile';
+// import { addEducation } from '../../actions/profile';
 
 // const AddEducation = ({ addEducation }) => {
 //   const navigate = useNavigate();

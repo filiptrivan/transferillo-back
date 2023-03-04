@@ -368,8 +368,9 @@ button {
   grid-template-areas:
     "top top"
     "about about"
-    "exp edu"
+    "exp exp"
     "github github";
+  grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
 }
 
@@ -410,34 +411,26 @@ button {
 }
 
 .profile-exp {
+  text-align: center;
   grid-area: exp;
   border-radius: 15px;
 }
 
-.profile-edu {
-  grid-area: edu;
-  border-radius: 15px;
-}
-
-.profile-exp h2,
-.profile-edu h2 {
+.profile-exp h2 {
   margin-bottom: 1rem;
 }
 
-.profile-exp > div,
-.profile-edu > div {
+.profile-exp > div {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: #ccc 1px dotted;
 }
 
-.profile-exp > div:last-child,
-.profile-edu > div:last-child {
+.profile-exp > div:last-child{
   border: 0;
 }
 
-.profile-exp p,
-.profile-edu p {
+.profile-exp p{
   margin: 0.5rem 0;
 }
 
@@ -458,6 +451,7 @@ button {
   flex: 3;
   flex-basis: 20%;
 }
+
 
 /* Posts Page */
 .post-form .post-form-header {
