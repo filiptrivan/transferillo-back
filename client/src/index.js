@@ -4,6 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 //component
 import App from "./App";
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+if (process.env.NODE_ENV === 'production') disableReactDevTools()
 
 //The ReactDOM.render() method is used to render the App component on the web page.
 //second argument is the document.getElementById("root"), which specifies where the component should be rendered in the HTML document.
